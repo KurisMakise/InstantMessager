@@ -1,6 +1,7 @@
 package makise.im.service;
 
 import makise.im.entity.MessageContent;
+import makise.im.vo.MessageVo;
 
 import java.util.List;
 

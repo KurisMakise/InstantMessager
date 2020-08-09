@@ -10,7 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
  * @version 1.0
  * @date 2020/8/7 19:12
  */
-@RequestMapping("user")
 @RestController
+@RequestMapping("user")
 public class UserController {
 }
+
+
+

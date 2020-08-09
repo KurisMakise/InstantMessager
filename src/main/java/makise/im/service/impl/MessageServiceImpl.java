@@ -2,7 +2,7 @@ package makise.im.service.impl;
 
 import makise.im.entity.MessageContent;
 import makise.im.service.MessageService;
-import makise.im.service.MessageVo;
+import makise.im.vo.MessageVo;
 
 import java.util.List;
 

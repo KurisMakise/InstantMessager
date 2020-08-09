@@ -1,4 +1,4 @@
-package makise.im.service;
+package makise.im.vo;
 
 /**
  * 消息
