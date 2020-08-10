@@ -29,8 +29,8 @@ public interface UserMapper {
     /**
      * 删除用户
      *
-     * @param user 用户信息
+     * @param uid 用户id
      * @return 是否成功
      */
-    int delete(User user);
+    int delete(String uid);
 }

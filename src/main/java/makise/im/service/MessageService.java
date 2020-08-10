@@ -27,7 +27,8 @@ public interface MessageService {
      *
      * @param ownerUid 当前用户
      * @param otherUid 对方用户
+     * @param type     消息类型
      * @return 消息列表
      */
-    List<MessageVo> getMessage(String ownerUid, String otherUid);
+    List<MessageVo> getMessage(String ownerUid, String otherUid, short type);
 }

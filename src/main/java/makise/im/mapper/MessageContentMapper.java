@@ -2,6 +2,8 @@ package makise.im.mapper;
 
 import makise.im.entity.MessageContent;
 
+import java.util.List;
+
 /**
  * 消息查询
  *
@@ -27,5 +29,12 @@ public interface MessageContentMapper {
      */
     int update(MessageContent messageContent);
 
+    /**
+     * 查询消息列表
+     *
+     * @param ownerUid 用户ID
+     * @return 消息列表
+     */
+    List<MessageContent> query(String ownerUid);
 
 }

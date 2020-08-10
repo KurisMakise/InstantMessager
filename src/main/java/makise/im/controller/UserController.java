@@ -1,5 +1,6 @@
 package makise.im.controller;
 
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,6 +14,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("user")
 public class UserController {
+
+/**
+ * 支持用户登录；
+ * 双方支持简单的文本聊天；
+ * 支持消息未读数（包括总未读和会话未读）；
+ * 支持联系人页和未读数有新消息的自动更新；
+ * 支持聊天页有新消息时自动更新。
+ */
+
+
+
 }
 
 

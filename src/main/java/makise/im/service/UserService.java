@@ -25,7 +25,7 @@ public interface UserService {
      * @param user 用户信息
      * @return 更新用户信息
      */
-    User update(User user);
+    int update(User user);
 
     /**
      * 删除用户信息
