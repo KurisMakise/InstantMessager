@@ -2,7 +2,9 @@ package makise.im.entity;
 
 import lombok.Data;
 
+import java.sql.Time;
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * 消息内容
@@ -13,6 +15,15 @@ import java.util.Date;
  */
 @Data
 public class MessageContent {
+
+    public MessageContent(String sendId, String receiveId, short msgType, String content) {
+        this.content = content;
+        this.sendId = sendId;
+        this.receiveId = receiveId;
+        this.msgType = msgType;
+        this.createTime = new Date();
+    }
+
     /**
      * 消息ID
      */
@@ -32,7 +43,7 @@ public class MessageContent {
     /**
      * 消息类型
      */
-    private short type;
+    private short msgType;
     /**
      * 创建时间
      */

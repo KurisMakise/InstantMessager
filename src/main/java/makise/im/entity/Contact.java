@@ -13,6 +13,7 @@ import java.util.Date;
  */
 @Data
 public class Contact {
+
     /**
      * 归属人
      */

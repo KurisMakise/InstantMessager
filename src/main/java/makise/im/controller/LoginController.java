@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
  * 登录
  * </p>
  *
- * @author violet
+ * @author k.makise
  * @version 1.0
  * @since 2020/8/9 18:44
  */

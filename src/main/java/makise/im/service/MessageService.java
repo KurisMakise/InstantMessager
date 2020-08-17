@@ -1,8 +1,10 @@
 package makise.im.service;
 
 import makise.im.entity.MessageContent;
+import makise.im.vo.ContactInfoVo;
 import makise.im.vo.MessageVo;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -15,12 +17,16 @@ import java.util.List;
 public interface MessageService {
 
     /**
-     * 服务器存储用户信息
+     * 发送消息
      *
-     * @param messageContent 消息内容
-     * @return 0保存失败 1保存成功
+     * @param sendUid    发送方ID
+     * @param receiveUid 接收方ID
+     * @param content    消息内容
+     * @param msgType    消息类型，用户消息，系统消息
+     * @return 消息对象
      */
-    int save(MessageContent messageContent);
+    MessageVo sendMessage(String sendUid, String receiveUid, String content, short msgType);
+
 
     /**
      * 获取用户消息
@@ -31,4 +37,24 @@ public interface MessageService {
      * @return 消息列表
      */
     List<MessageVo> getMessage(String ownerUid, String otherUid, short type);
+
+    /**
+     * 获取某条消息之后的消息
+     *
+     * @param ownerUid 当前用户ID
+     * @param otherUid 对方用户ID
+     * @param msgId    消息ID
+     * @param type     消息类型
+     * @return 消息列表
+     */
+    List<MessageVo> getMessage(String ownerUid, String otherUid, String msgId, short type);
+
+
+    /**
+     * 查询最近联系人
+     *
+     * @param ownerUid 用户ID
+     * @return 最近联系人列表
+     */
+    List<ContactInfoVo> queryContacts(String ownerUid);
 }

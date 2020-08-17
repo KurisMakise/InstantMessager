@@ -13,6 +13,14 @@ import lombok.Data;
  */
 @Data
 public class MessageRelation {
+
+    public MessageRelation(String mid, String ownerId, String otherId, short type) {
+        this.mid = mid;
+        this.ownerId = ownerId;
+        this.otherId = otherId;
+        this.type = type;
+    }
+
     /**
      * 消息ID
      */
