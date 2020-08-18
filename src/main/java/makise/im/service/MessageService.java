@@ -1,10 +1,8 @@
 package makise.im.service;
 
-import makise.im.entity.MessageContent;
-import makise.im.vo.ContactInfoVo;
+import makise.im.vo.MessageContactVo;
 import makise.im.vo.MessageVo;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -43,11 +41,11 @@ public interface MessageService {
      *
      * @param ownerUid 当前用户ID
      * @param otherUid 对方用户ID
-     * @param msgId    消息ID
+     * @param mid      消息ID
      * @param type     消息类型
      * @return 消息列表
      */
-    List<MessageVo> getMessage(String ownerUid, String otherUid, String msgId, short type);
+    List<MessageVo> getMessage(String ownerUid, String otherUid, String mid, short type);
 
 
     /**
@@ -56,5 +54,5 @@ public interface MessageService {
      * @param ownerUid 用户ID
      * @return 最近联系人列表
      */
-    List<ContactInfoVo> queryContacts(String ownerUid);
+    List<MessageContactVo> queryContacts(String ownerUid);
 }

@@ -7,14 +7,15 @@ import makise.im.mapper.MessageContactMapper;
 import makise.im.mapper.MessageContentMapper;
 import makise.im.mapper.MessageRelationMapper;
 import makise.im.service.MessageService;
-import makise.im.vo.ContactInfoVo;
+import makise.im.vo.MessageContactVo;
 import makise.im.vo.MessageVo;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * @author kurisu makise
@@ -45,7 +46,6 @@ public class MessageServiceImpl implements MessageService {
         messageContentMapper.save(messageContent);
 
         String mid = messageContent.getMid();
-
         //保存发件箱
         MessageRelation messageRelationSender = new MessageRelation(mid, sendUid, receiveUid, MessageRelationType.SENDER.type);
         messageRelationMapper.save(messageRelationSender);
@@ -85,25 +85,43 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public List<MessageVo> getMessage(String ownerUid, String otherUid, short type) {
-        List<MessageVo> messageVos = new ArrayList<>();
-        List<MessageRelation> messageRelations = messageRelationMapper.queryAll(ownerUid, otherUid);
+        List<MessageVo> messageVos;
+        List<MessageContent> messageContents = messageContentMapper.query(ownerUid, otherUid);
 
-
-        for (MessageRelation messageRelation : messageRelations) {
-            MessageContent query = messageContentMapper.query(messageRelation.getMid());
+        messageVos = messageContents.stream().map(messageContent -> {
             MessageVo messageVo = new MessageVo();
-        }
+            BeanUtils.copyProperties(messageContent, messageVo);
+            return messageVo;
+        }).collect(Collectors.toList());
 
         return messageVos;
     }
 
     @Override
-    public List<MessageVo> getMessage(String ownerUid, String otherUid, String msgId, short type) {
-        return null;
+    public List<MessageVo> getMessage(String ownerUid, String otherUid, String mid, short type) {
+        List<MessageVo> messageVos;
+        List<MessageContent> messageContents = messageContentMapper.query(ownerUid, otherUid, mid);
+
+        messageVos = messageContents.stream().map(messageContent -> {
+            MessageVo messageVo = new MessageVo();
+            BeanUtils.copyProperties(messageContent, messageVo);
+            return messageVo;
+        }).collect(Collectors.toList());
+
+        return messageVos;
     }
 
     @Override
-    public List<ContactInfoVo> queryContacts(String ownerUid) {
-        return null;
+    public List<MessageContactVo> queryContacts(String ownerUid) {
+        List<MessageContact> messageContacts = messageContactMapper.query(ownerUid);
+
+        List<MessageContactVo> messageContactVos = messageContacts.stream().map(messageContact -> {
+            MessageContactVo messageContactVo = new MessageContactVo();
+            BeanUtils.copyProperties(messageContact, messageContactVo);
+
+            return messageContactVo;
+        }).collect(Collectors.toList());
+
+        return messageContactVos;
     }
 }

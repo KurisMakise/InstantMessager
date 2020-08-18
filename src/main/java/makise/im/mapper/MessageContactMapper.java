@@ -2,6 +2,8 @@ package makise.im.mapper;
 
 import makise.im.entity.MessageContact;
 
+import java.util.List;
+
 /**
  * 最近消息
  *
@@ -26,4 +28,12 @@ public interface MessageContactMapper {
      * @return
      */
     int update(MessageContact messageContact);
+
+    /**
+     * 查询消息列表
+     *
+     * @param ownerUid 拥有方ID
+     * @return 消息内容
+     */
+    List<MessageContact> query(String ownerUid);
 }

@@ -39,6 +39,16 @@ public interface MessageContentMapper {
     List<MessageContent> query(String ownerUid, String otherUid);
 
     /**
+     * 从某条消息开始查询消息列表
+     *
+     * @param ownerUid 拥有者id
+     * @param otherUid 对方id
+     * @param mid      消息id
+     * @return 消息列表
+     */
+    List<MessageContent> query(String ownerUid, String otherUid, String mid);
+
+    /**
      * 根据消息ID查询消息内容
      *
      * @param mid 消息id
