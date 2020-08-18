@@ -9,10 +9,10 @@ import makise.im.mapper.MessageRelationMapper;
 import makise.im.service.MessageService;
 import makise.im.vo.ContactInfoVo;
 import makise.im.vo.MessageVo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -26,13 +26,14 @@ public class MessageServiceImpl implements MessageService {
 
     private final MessageContentMapper messageContentMapper;
     private final MessageRelationMapper messageRelationMapper;
-    @Autowired
-    private MessageContactMapper messageContactMapper;
+    private final MessageContactMapper messageContactMapper;
 
     public MessageServiceImpl(@Qualifier("messageContentMapper") MessageContentMapper messageContentMapper,
-                              @Qualifier("messageRelationMapper") MessageRelationMapper messageRelationMapper) {
+                              @Qualifier("messageRelationMapper") MessageRelationMapper messageRelationMapper,
+                              @Qualifier("messageContactMapper") MessageContactMapper messageContactMapper) {
         this.messageContentMapper = messageContentMapper;
         this.messageRelationMapper = messageRelationMapper;
+        this.messageContactMapper = messageContactMapper;
     }
 
 
@@ -45,7 +46,6 @@ public class MessageServiceImpl implements MessageService {
 
         String mid = messageContent.getMid();
 
-        short type = 0;
         //保存发件箱
         MessageRelation messageRelationSender = new MessageRelation(mid, sendUid, receiveUid, MessageRelationType.SENDER.type);
         messageRelationMapper.save(messageRelationSender);
@@ -54,14 +54,13 @@ public class MessageServiceImpl implements MessageService {
         MessageRelation messageRelationRecipient = new MessageRelation(mid, receiveUid, sendUid, MessageRelationType.RECIPIENT.type);
         messageRelationMapper.save(messageRelationRecipient);
 
-
         //更新发件人最近联系人
-        MessageContact messageContactSender = new MessageContact();
-
+        MessageContact messageContactSender = new MessageContact(sendUid, receiveUid, mid, MessageRelationType.SENDER.type);
+        messageContactMapper.save(messageContactSender);
 
         //更新收件人最近联系人
-        MessageContact messageContactRecipient = new MessageContact();
-
+        MessageContact messageContactRecipient = new MessageContact(receiveUid, sendUid, mid, MessageRelationType.RECIPIENT.type);
+        messageContactMapper.save(messageContactRecipient);
 
         return null;
     }
@@ -86,7 +85,16 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public List<MessageVo> getMessage(String ownerUid, String otherUid, short type) {
-        return null;
+        List<MessageVo> messageVos = new ArrayList<>();
+        List<MessageRelation> messageRelations = messageRelationMapper.queryAll(ownerUid, otherUid);
+
+
+        for (MessageRelation messageRelation : messageRelations) {
+            MessageContent query = messageContentMapper.query(messageRelation.getMid());
+            MessageVo messageVo = new MessageVo();
+        }
+
+        return messageVos;
     }
 
     @Override

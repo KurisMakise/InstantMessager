@@ -9,10 +9,11 @@ import lombok.Data;
  */
 @Data
 public class MessageContact {
-
-    public MessageContact(String ownerUid, String otherUid) {
+    public MessageContact(String ownerUid, String otherUid, String mid, short type) {
         this.ownerUid = ownerUid;
         this.otherUid = otherUid;
+        this.mid = mid;
+        this.type = type;
     }
 
     /**
